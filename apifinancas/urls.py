@@ -15,7 +15,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.urls.conf import include
+
+from saida import routers as saida_routers
+from entrada import routers as entrada_routers
+
+
+api_patterns = [
+    path(r'debits/', include(saida_routers.router.urls)),
+    path(r'incomings/', include(entrada_routers.router.urls))
+]
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/', include(api_patterns))
 ]
